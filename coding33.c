@@ -1,21 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 void main(){
+    int a[100];int max;int min;int n=0;
 
-    int i, a; int n=10;
-    int  *mang;
-
-
-    mang = (int*) malloc(n* sizeof(int)); 
-    for ( i = 0; i < n; i++); 
-    {    
-        printf(" Nhap phan tu thu %d:", i); 
-        scanf("%d", (mang+i)); 
-    } 
+    for(int i=0;i<=100;i++){
+        printf("Nhap vao so thu : %d \n",i);
+        scanf("%d",&a[i]);
+        if(a[i]<0){
+            break;
+        }
+        n++;
+    }
+    
+    max=0;
     
 
-
-    
-
+    for(int i=0;i<=n;i++){
+        if(a[i]>max){
+            max=a[i];
+        }
+        if(a[i]<min){
+            min=a[i];
+        }
+    }
+    printf("Max la : %d \n",max);
+    printf("Min la : %d \n",min);
 }
