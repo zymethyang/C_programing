@@ -13,17 +13,23 @@ void main(){
             check=1;
         }
     }
-    if(check==1){
-        printf("Mang co so le : ");
+    if(!check){
+        printf("Mang khong co so le : ");
     }else{
-        mang = (int *) malloc (sizeof(int));
+        mang = (int *) calloc (1,sizeof(int));
        //mang=&a[0];
-        for(int i=0;i<15;i++){
-            *(mang+i)=a[i];
+        int i_length=0;
+        int i=0;
+        while(i<15){
+            if(a[i]%2){
+                *(mang+i_length)=a[i];
+                i_length++;
+            }
+            i++;
         }
-        for(int i=0;i<15;i++){
+        for(int i=0;i<i_length;i++){
             max=INT_MIN;
-            for(int j=i;j<15;j++){
+            for(int j=i;j<i_length;j++){
                 if(*(mang+j)>max){
                    max=*(mang+j);
                    index=j;
@@ -33,11 +39,11 @@ void main(){
             *(mang+index)=*(mang+i);
             *(mang+i)=temp;
         }
-        printf("Mang sap xep la : \n");
-        for(int i=0;i<15;i++){
+        printf("\nMang sap xep la : \n");
+        for(int i=0;i<i_length;i++){
             printf("%d ",*(mang+i));
         }
-        printf("Mang goc la : \n");
+        printf("\nMang goc la : \n");
         for(int i=0;i<15;i++){
             printf("%d ",a[i]);
         }
