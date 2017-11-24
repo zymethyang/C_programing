@@ -1,94 +1,85 @@
 #include <stdio.h>
-#include <math.h>
-int getWords(char *base, char target[10][20])
-{
-	int n=0,i,j=0;
-	
-	for(i=0;1;i++)
-	{
-		if(base[i]!=' '){
-			target[n][j++]=base[i];
-		}
-		else{
-			target[n][j++]='\0';//insert NULL
-			n++;
-			j=0;
-		}
-		if(base[i]=='\0')
-		    break;
-	}
-	return n;
-	
+#include <stdlib.h>
+
+int soLonHon(int a,int b){
+    if (b > a){
+        return 1;
+    }else{
+        return 0;
+    }
 }
 
-int main(){
-    char hoten[10][50];
-    float diem[10][3];
-    int i, j, flag = 0;
-    for(i= 0; i<5; i++){
-        printf("Ho va ten: ");
-        gets(hoten[i]);
-        printf("Nhap diem: ");
-        for(j=0; j<2; j++){
-            scanf("%f", &diem[i][j]);
-        }
-        diem[i][2] = (diem[i][0] + diem[i][1])/2;
-        if(diem[i][2]<0)    flag=1;
+int ktraLap(int* a,int s,int index){
+    int flag=0;
+    for(int i=0;i<index;i++){
+        if(s == *(a+i)){
+            flag=1;
+            break;
+        } 
     }
-    for(i=0;i<5;i++){
-      printf("%d",sizeof(hoten[i]));
-    }
-    if(flag==1){
-        printf("\nDanh sach sinh vien rot:  \n");
-        for(i=0; i<5; i++){
-            if(diem[i][2] < 5){
-                printf("Ho va  ten:   ");
-                puts(hoten[i]);
-                printf("Diem: ");
-                for(j=0; j<3; j++){
-                    printf("%0.2f\t", diem[i][j]);
-                }
-                printf("\n");
-                flag = 1;
-            }
-        }
-    }
-    else    printf("\nKhong co sinh vien nao rot");
-    float imax = diem[0][2];
-    for(i=1; i<5; i++)
-            if(imax < diem[i][2])
-                imax = diem[i][2];
-    printf("\nSinh vien co diem cao nhat la:\n");
-    for(i=0; i<5; i++)
-        for(j=0; j<3; j++){
-            if(imax == diem[i][2]){
-                printf("Ho va  ten:   ");
-                puts(hoten[i]);
-                printf("Diem: ");
-                for(j=0; j<3; j++){
-                    printf("%0.2f\t", diem[i][j]);
-                }
-                 printf("\n");
-            }
-        }
-    return 0;
+    return flag;
+}   
 
-    int n[50]; 
-    int k;
-    for(i=0;i<5;i++){
-      char str[] = hoten[i];
-      char arr[i][10][50];
-      n[i]=getWords(str,arr);
+int demSoTrongMang(int* a,int n,int s){
+    int dem=0;
+    for(int i=0;i<n;i++){
+        if(s == *(a+i)){
+            dem++;
+        }
+    }
+    return dem;
+}
+
+void dayTangDan(int* a,int n){
+    for(int i=0;i<n;i++){
+        if(i==0){
+            if(soLonHon(*a,*(a+1))){
+                printf("Day tang dan : %d \n",*a);
+            }
+        }else{
+            if( soLonHon(*(a-1),*(a)) == 1  ){
+                printf("%d ",*a);
+            }
+        } 
+    }
+}
+
+void nhapMang(int* z,int n){
+    for(int i=0;i<n;i++){
+        printf("Nhap vao phan tu thu %d \n",i);
+        scanf("%d",&*(z+i));
+    }
+}
+
+void main(){
+    int *a;
+    int *b;
+    int n;
+    int m;
+    a = (int *)malloc(n*sizeof(int));
+    b = (int *)malloc(n*sizeof(int));
+    printf("Nhap vao so phan tu cua day \n");
+    scanf("%d",&n);
+    nhapMang(a,n);
+    
+    for(int i=0;i<n;i++){
+        if(!ktraLap(a,*(a+i),i)){
+            printf("%d co so lan xuat hien la : %d \n",*(a+i),demSoTrongMang(a,n,*(a+i)));
+        }
     }
 
-    
-      
-     
-    
-    for(k=0;k<5;k++){
-      for(i=0;i<=n[k];i++){
-        printf("%d",arr[k][i]);
+    printf("Nhap vao so luong phan tu mang B \n");
+    scanf("%d",&m);
+    nhapMang(b,m);
+
+    for(int i=0;i<m;i++){
+        if(demSoTrongMang(a,n,*(b+i))!=0){
+            printf("So %d xuat hien dong thoi \n",(*(b+i)));
+        }
     }
-    }
-    
+
+    dayTangDan(a,n);
+
+    free(a);
+    free(b);
 }

@@ -30,10 +30,10 @@ void main(void){
         //flushall();
         loptt[i].diemtb = (loptt[i].diemtoan +loptt[i].diemhoa+loptt[i].diemtoan) / 3 ;
         printf("Diem trung binh cua cac sinh vien \n");
-        for(int j=0;j<5;i++){
-            puts("Ho ten : \n");
-            puts(loptt[j].hoten);
-            printf("Diem tb : %f \n",loptt[j].diemtb);
-        }
+    }
+    for(int j=0;j<5;i++){
+        puts("Ho ten : \n");
+        puts(loptt[j].hoten);
+        printf("Diem tb : %f \n",loptt[j].diemtb);
     }
 }
